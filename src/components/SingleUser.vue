@@ -3,54 +3,54 @@
         <table>
             <tr>
                 <th>Name</th>
-                <td>data</td>
+                <td>{{singleUser.name}}</td>
+
             </tr>
             <tr>
                 <th>Email</th>
-                <td>data</td>
+                <td>{{singleUser.email}}</td>
             </tr>
             <tr>
                 <th>Address</th>
-                <td>data</td>
+                <td>{{singleUser.address.street}}, {{singleUser.address.suite}}, {{singleUser.address.city}},
+                    {{singleUser.address.zipcode}}
+                </td>
             </tr>
             <tr>
                 <th>Phone</th>
-                <td>data</td>
+                <td>{{singleUser.phone}}</td>
             </tr>
             <tr>
                 <th>Website</th>
-                <td>data</td>
+                <td>{{singleUser.website}}</td>
             </tr>
             <tr>
                 <th>Company</th>
-                <td>data</td>
+                <td>{{singleUser.company.name}}</td>
             </tr>
         </table>
-
-
-
-
-        <!--            <tr v-for="user in allUsers" :key="user.id">-->
-        <!--                <td>{{user.name}}</td>-->
-        <!--                <td>{{user.email}}</td>-->
-        <!--                <td>{{user.address.street}}, {{user.address.suite}}, {{user.address.city}}, {{user.address.zipcode}}</td>-->
-        <!--                <td>{{user.phone}}</td>-->
-        <!--                <td>{{user.website}}</td>-->
-        <!--                <td>{{user.company.name}}</td>-->
-        <!--            </tr>-->
-        <!--        </table>-->
-        <button class="btn info" @click="goHome">Go Home</button>
+        <button class="btn" @click="goBack">Go Back</button>
     </div>
 </template>
 
 
 <script>
-    export default {
-        methods: {
-            goHome() {
-                this.$router.push('/')
-            }
+    import {mapActions, mapGetters} from 'vuex'
 
+    export default {
+        computed: mapGetters(['singleUser']),
+        methods: {
+            ...mapActions(['getUserById', 'resetState']),
+            goBack() {
+                this.$router.push('/')
+            },
+        },
+        beforeMount() {
+            this.resetState()
+        },
+        mounted() {
+            let id = this.$route.params.id;
+            this.getUserById(id)
         }
     }
 
@@ -60,34 +60,29 @@
 <style scoped>
 
     .btn {
-        border: none;
         color: white;
         padding: 14px 28px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 50px;
+        margin-top: 30px;
+        border: 1px solid white;
+        background-color: #2196F3;
     }
 
     .btn:focus {
         outline: none;
     }
 
-    .info {
-        background-color: #2196F3;
-    }
-
-    .info:hover {
-        background: #0b7dda;
-    }
-
     table, th, td {
         border: 1px solid white;
         background-color: rgba(255, 255, 255, 0.4);
     }
+
     table {
         width: 700px;
         border-collapse: collapse;
         margin: 0 auto;
+        cursor:pointer;
     }
 
     th, td {
@@ -97,9 +92,6 @@
 
     th {
         width: 25%;
-    }
-
-    tr:hover {
         background-color: #96aacf;
     }
 

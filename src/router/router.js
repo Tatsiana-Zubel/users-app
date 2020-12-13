@@ -8,6 +8,6 @@ export default new VueRouter( {
     mode: 'history',
     routes: [
         { path: '/', component: AllUsers },
-        { path: '/single-user', component: SingleUser},
+        { path: '/user/:id', component: SingleUser, props: true},
     ]
 })

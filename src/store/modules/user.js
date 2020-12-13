@@ -1,30 +1,39 @@
 import axios from 'axios';
 
+const getDefaultState = () => {
+    return {
+       user: {}
+    }
+};
 
 export default {
-    state: {
-        users: []
-    },
-    mutations: {
-        updateUsers(state, data) {
-            state.users = data
 
+    state: getDefaultState(),
+    mutations: {
+        updateUser(state, data) {
+            state.user = data
+        },
+        resetState (state) {
+            Object.assign(state, getDefaultState())
         }
     },
     actions: {
-        getUsers({commit}) {
+        getUserById(ctx, id) {
             axios
-                .get('https://jsonplaceholder.typicode.com/users')
+                .get('https://jsonplaceholder.typicode.com/users/' + id)
                 .then(response => {
-                    commit('updateUsers', response.data)
+                    ctx.commit('updateUser', response.data)
                 })
                 .catch((error) => console.log(error.message))
-
+        },
+        resetState ({ commit }) {
+            commit('resetState')
         }
     },
     getters: {
-        allUsers(state) {
-            return state.users
+        singleUser(state) {
+            return state.user
         }
-    }
+    },
+
 }

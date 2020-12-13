@@ -8,14 +8,12 @@
                 <th>Phone</th>
                 <th>Company</th>
             </tr>
-
-            <tr v-for="user in allUsers" :key="user.id" @click="getClickedUser(user)">
+            <tr v-for="user in allUsers" :key="user.id" @click="handleClick(user.id)">
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
-                <!--                <td>{{user.address.street}}, {{user.address.suite}}, {{user.address.city}}, {{user.address.zipcode}}</td>-->
                 <td>{{user.phone}}</td>
-                <!--                <td>{{user.website}}</td>-->
                 <td>{{user.company.name}}</td>
+
             </tr>
         </table>
     </div>
@@ -28,10 +26,9 @@
         computed: mapGetters(['allUsers']),
         methods: {
             ...mapActions(['getUsers']),
-            getClickedUser(user) {
-                console.log(user);
+            handleClick(id) {
+                this.$router.push('/user/' + id)
             }
-
         },
         mounted() {
             this.getUsers()
@@ -50,6 +47,7 @@
         width: 90%;
         margin: 0 auto;
         border-collapse: collapse;
+        cursor:pointer;
     }
 
     th, td {
