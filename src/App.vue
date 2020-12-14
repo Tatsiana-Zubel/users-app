@@ -23,5 +23,7 @@ export default {
 body {
   background-image: url('./assets/background.jpg');
   background-size: cover;
+  width: 100%;
+  /*height: auto;*/
 }
 </style>

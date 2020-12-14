@@ -1,44 +1,54 @@
 <template>
-    <div class="table" style="overflow-x:auto;">
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>{{singleUser.name}}</td>
+    <div>
+        <Spinner v-if="stateLoading"></Spinner>
 
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{singleUser.email}}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{singleUser.address.street}}, {{singleUser.address.suite}}, {{singleUser.address.city}},
-                    {{singleUser.address.zipcode}}
-                </td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{singleUser.phone}}</td>
-            </tr>
-            <tr>
-                <th>Website</th>
-                <td>{{singleUser.website}}</td>
-            </tr>
-            <tr>
-                <th>Company</th>
-                <td>{{singleUser.company.name}}</td>
-            </tr>
-        </table>
-        <button class="btn" @click="goBack">Go Back</button>
+        <div v-if="!stateLoading" class="table" style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>{{singleUser.name}}</td>
+
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{singleUser.email}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{singleUser.address.street}}, {{singleUser.address.suite}}, {{singleUser.address.city}},
+                        {{singleUser.address.zipcode}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{singleUser.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Website</th>
+                    <td>{{singleUser.website}}</td>
+                </tr>
+                <tr>
+                    <th>Company</th>
+                    <td>{{singleUser.company.name}}</td>
+                </tr>
+            </table>
+            <button class="btn" @click="goBack">Go Back</button>
+        </div>
     </div>
 </template>
 
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
+    import Spinner from './spinner/Spinner.vue'
 
     export default {
-        computed: mapGetters(['singleUser']),
+        components: {
+            Spinner
+        },
+        computed: {
+            ...mapGetters(['singleUser', 'stateLoading']),
+        },
         methods: {
             ...mapActions(['getUserById', 'resetState']),
             goBack() {
@@ -49,11 +59,10 @@
             this.resetState()
         },
         mounted() {
-            let id = this.$route.params.id;
+            let id = this.$route.params.id
             this.getUserById(id)
         }
     }
-
 </script>
 
 
@@ -79,10 +88,10 @@
     }
 
     table {
-        width: 700px;
+        width: 60%;
         border-collapse: collapse;
         margin: 0 auto;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     th, td {
