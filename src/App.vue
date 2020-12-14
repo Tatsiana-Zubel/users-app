@@ -18,12 +18,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 60px 0 60px;
 }
+
 body {
   background-image: url('./assets/background.jpg');
   background-size: cover;
-  width: 100%;
-  /*height: auto;*/
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top: 60px;
 }
 </style>

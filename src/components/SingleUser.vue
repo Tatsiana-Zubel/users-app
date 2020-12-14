@@ -1,13 +1,12 @@
 <template>
     <div>
-        <Spinner v-if="stateLoading"></Spinner>
-
-        <div v-if="!stateLoading" class="table" style="overflow-x:auto;">
-            <table>
+        <Spinner v-if="singleUserStateLoading"></Spinner>
+        <div v-if="!singleUserStateLoading" class="table-container" style="overflow-x:auto;">
+            <span class="user-name">{{singleUser.name}}</span>
+            <table class="user-table">
                 <tr>
                     <th>Name</th>
                     <td>{{singleUser.name}}</td>
-
                 </tr>
                 <tr>
                     <th>Email</th>
@@ -47,7 +46,7 @@
             Spinner
         },
         computed: {
-            ...mapGetters(['singleUser', 'stateLoading']),
+            ...mapGetters(['singleUser', 'singleUserStateLoading']),
         },
         methods: {
             ...mapActions(['getUserById', 'resetState']),
@@ -67,6 +66,17 @@
 
 
 <style scoped>
+    .table-container {
+        margin-bottom: 60px;
+    }
+
+    .user-name {
+        font-size: 24px;
+    }
+
+    .user-table {
+        margin-top: 30px;
+    }
 
     .btn {
         color: white;
@@ -103,5 +113,4 @@
         width: 25%;
         background-color: #96aacf;
     }
-
 </style>

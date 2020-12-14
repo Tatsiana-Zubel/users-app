@@ -2,7 +2,21 @@ import axios from 'axios';
 
 const getDefaultState = () => {
     return {
-        user: {},
+        user: {
+            name: '',
+            email: '',
+            address: {
+                street: '',
+                suite: '',
+                city: '',
+                zipcode:'',
+            },
+            phone: '',
+            website: '',
+            company: {
+                name: ''
+            }
+        },
         loading: false
     }
 };
@@ -29,7 +43,6 @@ export default {
                 .then(response => {
                     ctx.commit('updateUser', response.data)
                     ctx.commit('updateLoading', false)
-
                 })
                 .catch((error) => console.log(error.message))
         },
@@ -41,7 +54,7 @@ export default {
         singleUser(state) {
             return state.user
         },
-        stateLoading(state) {
+        singleUserStateLoading(state) {
             return state.loading
         }
     }
